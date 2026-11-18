@@ -4,15 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Miracle Olotuche James</title>
-  <meta name="description" content="Miracle Olotuche James. Research Associate at Carnegie Mellon University Africa working on robot learning, reward modeling and computer vision.">
+  <meta name="description" content="Miracle Olotuche James. Research Associate at Carnegie Mellon University Africa working on reliable visual feedback for robot learning, reward modeling and computer vision.">
   <meta name="author" content="Miracle Olotuche James">
   <style>
-    :root { --text: #222; --muted: #555; --link: #1772d0; --hover: #f09228; --line: #e6e6e6; --tile: #f3f5f8; }
+    :root { --text: #222; --muted: #555; --link: #1772d0; --hover: #f09228; --line: #e6e6e6; }
     * { box-sizing: border-box; }
     body { margin: 0; background: #fff; color: var(--text); font-family: "Lato", Verdana, Helvetica, Arial, sans-serif; font-size: 15px; line-height: 1.6; }
     a { color: var(--link); text-decoration: none; }
     a:hover, a:focus { color: var(--hover); }
-    .page { max-width: 860px; margin: 0 auto; padding: 36px 20px 48px; }
+    .page { max-width: 880px; margin: 0 auto; padding: 36px 20px 48px; }
     .intro { display: flex; gap: 32px; align-items: center; }
     .intro-text { flex: 1 1 62%; }
     .intro-photo { flex: 0 0 34%; text-align: center; }
@@ -24,24 +24,24 @@
     .links a { white-space: nowrap; }
     .item { display: flex; gap: 22px; align-items: center; padding: 16px 0; border-top: 1px solid var(--line); }
     .item:first-of-type { border-top: 0; }
-    .thumb { flex: 0 0 170px; }
-    .thumb img, .thumb video { width: 170px; height: 128px; object-fit: cover; border: 1px solid var(--line); border-radius: 4px; display: block; }
-    .credit { font-size: 11px; color: #888; margin-top: 3px; line-height: 1.3; }
-    .thumb img.fit { object-fit: contain; background: #fff; }
-    .tile { width: 170px; height: 128px; border-radius: 4px; background: var(--tile); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; color: #445; font-size: 14px; letter-spacing: .02em; }
+    .thumb { flex: 0 0 210px; position: relative; }
+    .thumb img, .thumb video { width: 210px; height: 150px; object-fit: cover; border: 1px solid var(--line); border-radius: 4px; display: block; background: #fff; }
+    .thumb img.fit { object-fit: contain; }
+    .thumb video { cursor: pointer; }
+    .badge { position: absolute; left: 6px; bottom: 6px; background: rgba(0,0,0,.62); color: #fff; font-size: 11px; line-height: 1; padding: 4px 6px; border-radius: 3px; pointer-events: none; }
     .body { flex: 1; }
     .title { font-weight: 700; }
     .meta { color: var(--muted); }
     .me { font-weight: 700; }
-    ul.plain { margin: 6px 0 0; padding-left: 18px; }
-    ul.plain li { margin-bottom: 6px; }
     footer { margin-top: 44px; text-align: right; font-size: 12px; color: #888; }
     @media (max-width: 640px) {
       .intro { flex-direction: column-reverse; gap: 18px; }
       .intro-photo img { max-width: 190px; }
       .item { flex-direction: column; align-items: flex-start; gap: 10px; }
-      .thumb, .thumb img, .thumb video, .tile { width: 100%; }
-      .thumb img, .thumb video, .tile { height: 160px; }
+      .thumb { flex: none; }
+      .thumb, .thumb img, .thumb video { width: 100%; }
+      .thumb img, .thumb video { height: auto; aspect-ratio: 16 / 9; }
+      .thumb img.fit { max-height: 260px; }
     }
   </style>
 </head>
@@ -53,14 +53,16 @@
     <div class="intro-text">
       <h1>Miracle Olotuche James</h1>
       <p>
-        I am a Research Associate at <a href="https://www.africa.engineering.cmu.edu/">Carnegie Mellon University Africa</a>.
-        My research focuses on robot manipulation for long horizon, contact rich tasks, spanning robot learning, reward
-        modeling and computer vision.
+        I am a Research Associate at <a href="https://www.africa.engineering.cmu.edu/">Carnegie Mellon University Africa</a>
+        in Kigali, Rwanda. I received my M.S. in Engineering Artificial Intelligence with distinction from Carnegie
+        Mellon University and my B.Eng. in Electrical and Electronic Engineering from the Federal University of
+        Technology, Minna.
       </p>
       <p>
-        I began in computer vision, working on medical imaging, face attack detection and OCR for African scripts. That
-        work led me through robot perception into robot learning, where I build progress reward models and use them to
-        train vision language action policies on physical robots.
+        My research goal is to build reliable, general-purpose robots for long-horizon and dexterous tasks. I have
+        designed and trained reward-aligned policies for garment folding on physical robots, and built vision systems
+        for detecting attacks on face biometric systems, low-cost leukemia detection for underserved communities, and
+        handwriting recognition for African scripts.
       </p>
       <p class="links">
         <a href="mailto:moj@andrew.cmu.edu">Email</a> &nbsp;/&nbsp;
@@ -74,60 +76,115 @@
     </div>
   </section>
 
-  <!-- ===================== RESEARCH ===================== -->
-  <h2>Research</h2>
-  <p>
-    I am interested in robots that can tell whether a task has truly succeeded, so that policies can keep improving
-    beyond their demonstrations. My work covers reward modeling, vision language action policies and visual reasoning
-    for manipulation.
-  </p>
+  <!-- ===================== ROBOT LEARNING ===================== -->
+  <h2>Robot Learning</h2>
 
   <div class="item">
-    <div class="thumb"><video src="images/tshirt_folding.mp4" poster="images/tshirt_folding_poster.jpg" autoplay loop muted playsinline aria-label="A two arm robot folding a T-shirt, shown at four times speed"></video></div>
+    <div class="thumb">
+      <a href="images/warp_progress_full.png"><img class="fit" src="images/warp_progress.jpg" width="1400" height="583" alt="Four plots of predicted progress (blue) against true progress (black) for clean, stalled, rewound and reversed playback of towel-folding demonstrations"></a>
+    </div>
     <div class="body">
-      <div class="title">Progress Rewards for Long Horizon Cloth Folding</div>
+      <div class="title">Learning Task Progress from Video</div>
       <div class="meta">Robot Perception Research Intern, Unit Zero, 2026</div>
       <p>
-        Built a stage aware reward model across 12 tasks and a self supervised relative progress model that learns
-        from demonstrations replayed at varying speeds, with stalls and reversals. Used these rewards to train
-        &pi;0.5 with reward aligned behavior cloning and deployed it on dual YAM arms with real time chunking.
+        A reward model that estimates how far a task has progressed, trained on demonstrations replayed with speed
+        changes, pauses and reversals. On 100 held-out episodes per task, it identified the direction of progress
+        97% of the time for towel folding and 95% for T-shirt folding, with about ten times lower progress error than
+        a time-based baseline. On real policy rollouts, however, repeated failed grasps could still look like
+        progress, which is the problem I want to solve next.
       </p>
     </div>
   </div>
 
   <div class="item">
-    <div class="thumb"><img src="images/tshirt_folded.jpg" alt="A neatly folded red T-shirt placed at the corner of the table after a robot rollout"></div>
+    <div class="thumb">
+      <video src="images/towel_fold.mp4" poster="images/towel_fold_poster.jpg" muted loop playsinline preload="metadata" aria-label="Two robot arms folding a towel and placing it on a stack, shown at four times speed"></video>
+      <span class="badge">4&times; speed</span>
+    </div>
     <div class="body">
-      <div class="title">Visual Question Answering for Robot Task Understanding</div>
+      <div class="title">Reward-Aligned Policies on Physical Robots</div>
       <div class="meta">Robot Perception Research Intern, Unit Zero, 2026</div>
       <p>
-        Built a 1,397 question video dataset from raw robot logs, covering scene state, task stage, next actions and
-        violation recovery, and fine tuned Molmo2-ER on it, raising task stage F1 from 0.14 to 0.92 and next action
-        F1 from 0.16 to 0.66.
+        Used these progress estimates to train &pi;0.5 with reward-aligned behavior cloning, which favors action
+        chunks that move the task forward, and deployed it on dual-arm robots with real-time chunking. In towel
+        folding, the reward-aligned policy finished more folds within two minutes than standard training (56% vs
+        42%) but succeeded slightly less often (93% of 104 attempts vs 98% of 50), suggesting that rewarding speed
+        can crowd out slower corrective actions.
       </p>
     </div>
   </div>
 
   <div class="item">
-    <div class="thumb"><img src="images/ocr_page.jpg" alt="A constructed page of Amharic handwriting used for training"></div>
+    <div class="thumb">
+      <video src="images/tshirt_folding.mp4" poster="images/tshirt_folding_poster.jpg" muted loop playsinline preload="metadata" aria-label="A two arm robot folding a T-shirt, shown at four times speed"></video>
+      <span class="badge">4&times; speed</span>
+    </div>
+    <div class="body">
+      <div class="title">Long-Horizon T-Shirt Folding with Stage-Aware Rewards</div>
+      <div class="meta">Robot Perception Research Intern, Unit Zero, 2026</div>
+      <p>
+        Extended reward-aligned training to multi-stage T-shirt folding, combining relative progress with a
+        stage-aware reward model built across 12 tasks so the policy is rewarded for completing each stage, not
+        just for moving.
+      </p>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="thumb">
+      <video src="images/tshirt_correction.mp4" poster="images/tshirt_correction_poster.jpg" muted loop playsinline preload="metadata" aria-label="A teleoperated demonstration in which the T-shirt is lifted and laid flat again after a misaligned placement, shown at two times speed"></video>
+      <span class="badge">Correction &middot; 2&times;</span>
+    </div>
+    <div class="body">
+      <div class="title">Visual Question Answering for Task Stages and Recovery</div>
+      <div class="meta">Robot Perception Research Intern, Unit Zero, 2026</div>
+      <p>
+        Built a 1,397-question video dataset from raw robot logs, covering scene state, task stage, next actions and
+        recovery after errors, and fine-tuned Molmo2-ER on it. Task-stage F1 rose from 0.14 to 0.92 and next-action
+        F1 from 0.16 to 0.66. Recovery remained the hardest case, because cloth can go wrong in many more ways than
+        a dataset can label.
+      </p>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="thumb">
+      <img class="fit" src="images/failure_confusion.jpg" width="900" height="824" loading="lazy" alt="Confusion matrix of predicted against true failure types for towel-folding videos">
+    </div>
+    <div class="body">
+      <div class="title">Robotic Perception for Deformable Object Manipulation</div>
+      <div class="meta">Research project, 2026</div>
+      <p>
+        A perception pipeline for towel-folding robots: tracking a towel under occlusion with Grounding DINO and
+        SAM2, predicting where the grippers will act next with a DINOv2 encoder, and detecting failures from video
+        with a vision-language model, where structured prompts raised F1 from 0.155 to 0.853.
+      </p>
+    </div>
+  </div>
+
+  <!-- ===================== COMPUTER VISION ===================== -->
+  <h2>Computer Vision</h2>
+
+  <div class="item">
+    <div class="thumb"><img src="images/ocr_page.jpg" loading="lazy" alt="A constructed page of Amharic handwriting used for training"></div>
     <div class="body">
       <div class="title">Structured Page Supervision for Full-Page Amharic Handwriting Recognition</div>
       <div class="meta"><span class="me">Miracle James</span> &nbsp;&middot;&nbsp; Technical report, Carnegie Mellon University Africa, 2026</div>
       <div>
-        <!-- TODO: add the report link, e.g. <a href="files/OCR_Report_Miracle_James.pdf">report</a> / -->
+        <!-- TODO: add the report link once confirmed, e.g. <a href="files/OCR_Report_Miracle_James.pdf">report</a> / -->
         <a href="https://github.com/MiracleJames/fidel-structured-page-ocr">code</a>
       </div>
       <p>
         Leading OCR models fail on African scripts, and training on rendered text does not transfer to handwriting.
         This work composes verified handwriting lines into full pages with exact layout, reading order and
-        transcription, and trains through a three stage curriculum, cutting character error from 2.08 to 0.31 on
-        150 held out pages. Extended to Ajami manuscripts in Hausa, Wolof and Fulfulde.
+        transcription, and trains through a three-stage curriculum, cutting character error from 2.08 to 0.31 on
+        150 held-out pages. Extended to Ajami manuscripts in Hausa, Wolof and Fulfulde.
       </p>
     </div>
   </div>
 
   <div class="item">
-    <div class="thumb"><img class="fit" src="images/tsanet.jpg" alt="TSANet method diagram: triplet training followed by classifier training with Soft ACER loss"></div>
+    <div class="thumb"><img class="fit" src="images/tsanet_faces.jpg" width="640" height="428" loading="lazy" alt="A real face image next to a printed-photo attack of the same person"></div>
     <div class="body">
       <div class="title">
         <a href="https://openaccess.thecvf.com/content/ICCV2025W/FAS2025/html/Ashungafac_TSANet_Unified_Face_Attack_Detection_via_Triplet_Embedding_and_Soft_ICCVW_2025_paper.html">TSANet: Unified Face Attack Detection via Triplet Embedding and Soft ACER Loss</a>
@@ -138,14 +195,14 @@
       </div>
       <div class="meta"><em>ICCV Workshops</em>, 2025</div>
       <p>
-        A single image model that detects both physical and digital face attacks, using a margin based triplet loss
+        A single image model that detects both physical and digital face attacks, using a margin-based triplet loss
         and Soft ACER, a loss that trains on confidence scores to match the evaluation metric.
       </p>
     </div>
   </div>
 
   <div class="item">
-    <div class="thumb"><img src="images/leukemia.jpg" alt="Sample microscopic blood film images from the leukemia paper"></div>
+    <div class="thumb"><img src="images/leukemia.jpg" loading="lazy" alt="Sample microscopic blood film images from the leukemia paper"></div>
     <div class="body">
       <div class="title">Automated and Accessible Leukemia Detection from Microscopic Blood Films Using YOLO and Vision Transformers</div>
       <div class="meta">
@@ -154,21 +211,8 @@
       </div>
       <div class="meta"><em>IEEE AFRICON</em>, 2025</div>
       <p>
-        A two stage system that detects white blood cells and their morphological attributes, then classifies five
-        leukemia subtypes, designed for low cost microscopes in under resourced clinics.
-      </p>
-    </div>
-  </div>
-
-  <div class="item">
-    <div class="thumb"><img src="images/towel_perception.jpg" alt="Two robot arms folding a white towel on a wooden table, seen from above"><div class="credit">Frame from the <a href="https://huggingface.co/datasets/Neotix-Robotics/dirty_towels">dirty_towels</a> dataset</div></div>
-    <div class="body">
-      <div class="title">Robotic Perception for Deformable Object Manipulation</div>
-      <div class="meta">Research project, 2026</div>
-      <p>
-        A perception pipeline for towel folding robots: tracking a towel under occlusion with Grounding DINO and SAM2,
-        predicting where the grippers will act next with a DINOv2 encoder, and detecting failures from video with a
-        vision language model, where structured prompts raised F1 from 0.155 to 0.853.
+        A two-stage system that detects white blood cells and their morphological attributes, then classifies five
+        leukemia subtypes, designed for low-cost microscopes in under-resourced clinics.
       </p>
     </div>
   </div>
@@ -178,5 +222,50 @@
   </footer>
 
 </div>
+<script>
+  // Short, silent clips play on their own while on screen and pause when scrolled away, so the page stays
+  // light. If the browser blocks autoplay, they start on the visitor's first click, tap, key press or scroll.
+  // Clicking a clip pauses or resumes it.
+  (function () {
+    var videos = Array.prototype.slice.call(document.querySelectorAll('.thumb video'));
+    var visible = new Set();
+    var blocked = false;
+
+    function start(v) {
+      v.muted = true;
+      var p = v.play();
+      if (p && p.catch) { p.catch(function () { blocked = true; }); }
+    }
+
+    function retry() {
+      if (!blocked) { return; }
+      blocked = false;
+      visible.forEach(function (v) { if (!v.dataset.userPaused) { start(v); } });
+    }
+    ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function (evt) {
+      window.addEventListener(evt, retry, { passive: true });
+    });
+
+    videos.forEach(function (v) {
+      v.muted = true;
+      v.addEventListener('click', function () {
+        if (v.paused) { delete v.dataset.userPaused; start(v); } else { v.dataset.userPaused = '1'; v.pause(); }
+      });
+    });
+
+    if (!('IntersectionObserver' in window)) {
+      videos.forEach(function (v) { v.preload = 'auto'; start(v); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting) { visible.add(v); if (!v.dataset.userPaused) { start(v); } }
+        else { visible.delete(v); v.pause(); }
+      });
+    }, { threshold: 0.25 });
+    videos.forEach(function (v) { io.observe(v); });
+  })();
+</script>
 </body>
 </html>
